@@ -5,7 +5,7 @@ Una volta ricevute le specifiche, e sapendo di dover sviluppare uno scheduler, s
 
 Per quanto riguarda il codice, ho cercato di aderire alle linee guida SOLID & DRY. Il codice è suddiviso in molte classi, e in molti piccoli metodi, ciascuno con le proprie responabilità.
 
-Ho sviluppato l'applicazione con QT-Creator, ma non ppotendo utilizzare il QT-Designer e componenti QML, le parti di interfaccia grafica presenti nel programma sono tutte create dinamicamente nel codice.
+Ho sviluppato l'applicazione con QT-Creator, ma non potendo utilizzare il QT-Designer e componenti QML, le parti di interfaccia grafica presenti nel programma sono tutte create dinamicamente nel codice.
 
 Il codice specifico per il test è stato sviluppato all'interno del namespace TiCare.
 
