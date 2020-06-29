@@ -1,7 +1,7 @@
 # TaskScheduler
 
 ## Approccio al progetto
-Una volta ricevute le specifiche, e sapendo di dover sviluppare uno scheduler, sono andato a verificare in letteratura se esistessero dei pattern specifici considerati pià adatti allo sviluppo di un tale tipo di applicazione. In effetti alcuni documenti suggeriscono di utilizzare un behavioral design pattern: il command. Questo tipo di pattern nella versione più semplice assomigliava molto all'idea di sviluppo che mi stavo facendo ed in effetti è rintracciabile nella interfaccia creata per i task.
+Una volta ricevute le specifiche, e sapendo di dover sviluppare uno scheduler, sono andato a verificare in letteratura se esistessero dei pattern specifici considerati più adatti allo sviluppo di un tale tipo di applicazione. In effetti alcuni documenti suggeriscono di utilizzare un behavioral design pattern: il command. Questo tipo di pattern nella versione più semplice assomigliava molto all'idea di sviluppo che mi stavo facendo ed in effetti è rintracciabile nella interfaccia creata per i task.
 
 Per quanto riguarda il codice, ho cercato di aderire alle linee guida SOLID & DRY. Il codice è suddiviso in molte classi, e in molti piccoli metodi, ciascuno con le proprie responabilità.
 
