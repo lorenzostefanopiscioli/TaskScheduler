@@ -11,6 +11,10 @@ namespace TiCare {
     }
 
 
+    // Al posto che creare un unico costruttore con un parametro di default
+    // QDateTime dateTime = QDateTime::currentdatetime() ho preferito
+    // usare un overloading per suddividere le responsabilità a seconda
+    // dei due casi
     IntervalTimer::IntervalTimer( const QString _timerName, const int _interval, const QDateTime dateTime )
     {
         timerName = _timerName;

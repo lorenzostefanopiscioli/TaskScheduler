@@ -34,8 +34,7 @@ HEADERS += \
     TaskInterface.h \
     TaskPrintText.h \
     TimeoutTimer.h \
-    TimerInterface.h \
-    Timing.h
+    TimerInterface.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -6,6 +6,11 @@
 
 namespace TiCare {
 
+    /*
+     * Classe derivata dall'interfaccia TimerInterface a sua volta derivata da QTimer
+     * Le classi concrete devono per forza implementare il metodo getTimerName che
+     * restituisce il nome univoco assegnato al timer in fase di istanziazione
+     */
     class IntervalTimer : public virtual TimerInterface
     {
         public:

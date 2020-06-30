@@ -15,10 +15,17 @@
 
 namespace TiCare {
 
+    /*
+     * Classe di gestione della programmazione temporale di task.
+     * Scheduler permette la relazione uno a molti tra task e
+     * timer di vario genere. Quindi un stesso task può essere invocato
+     * in esecuzione da timer diversi ad esso assocati.
+    */
     class Scheduler : public QObject
     {
         public:
             explicit Scheduler( QObject *parent = nullptr );
+            ~Scheduler();
             Task* getTask( const QString taskName  ) const;
             void addTask( TaskInterface* task );
             void addTask( TaskInterface* task, TimerInterface* timer );

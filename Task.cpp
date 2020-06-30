@@ -7,27 +7,38 @@ namespace TiCare {
     {
         task = tempTask;
         addTimer( tempTimer );
-    };
+    }
 
 
+    // Libero le risorse occupate dalle istanze dei timer associati al task
+    Task::~Task()
+    {
+        removeAllTimer();
+    }
+
+
+    // Restituisce il nome del task
     QString Task::getTaskName() const
     {
         return task->getTaskName();
     }
 
 
+    // Invoca il metodo virtuale di esecuzione di un task
     void Task::ExecuteTask()
     {
         task->ExecuteTask();
     }
 
 
+    // Invoca il metodo virtuale di configurazione di un task
     void Task::setConfiguration()
     {
         task->setConfiguration();
     }
 
 
+    // agginge un timer
     void Task::addTimer( TimerInterface* tempTimer )
     {
         // Controllo che non esista già un timer con questo nome
@@ -42,6 +53,7 @@ namespace TiCare {
     }
 
 
+    // Rimuovo un timer
     void Task::removeTimer( const QString _timerName )
     {
         for ( auto &timer : timerList )
@@ -60,6 +72,7 @@ namespace TiCare {
     }
 
 
+    // Rimuovo tutti i timer
     void Task::removeAllTimer()
     {
         for ( auto &timer : timerList )
@@ -74,6 +87,7 @@ namespace TiCare {
     }
 
 
+    // Verifica se esiste un timer con un certo nome
     bool Task::timerExists( const QString _timerName ) const
     {
         for ( auto timer : timerList )
@@ -87,6 +101,7 @@ namespace TiCare {
     }
 
 
+    // Restituisce la lista dei nomi dei timer
     QStringList Task::getTimerNameList() const
     {
         QStringList timerNameList{};

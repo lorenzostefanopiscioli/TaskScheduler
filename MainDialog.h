@@ -25,8 +25,7 @@ class MainDialog : public QDialog
     Q_OBJECT
 
     public:
-        MainDialog( TiCare::Scheduler *_scheduler, QWidget *parent = nullptr );
-        ~MainDialog();
+        MainDialog( const TiCare::Scheduler *_scheduler, QWidget *parent = nullptr );
 
     protected:
         void closeEvent( QCloseEvent *event ) override;
@@ -39,6 +38,15 @@ class MainDialog : public QDialog
         void createSystemTrayIconActions();
         void createSystemTrayIcon();
 
+        // Questo puntatore punta all'indirizzo in cui si trova lo scheduler
+        // creato in main con la restrizione di poterlo usare solo in lettura (const)
+        const TiCare::Scheduler *scheduler;
+
+        // Quando un oggetto derivato da QObject viene distrutto
+        // in automatico distrugge anche tutti i suoi figli, dunque
+        // non c'è bisogno di eseguire delete sui puntatori seguenti
+        // che sono tutti riferiti a classi derivate da QObject
+
         QAction *showSettingsDialogAction;
         QAction *quitAction;
 
@@ -47,9 +55,6 @@ class MainDialog : public QDialog
 
         QComboBox *taskComboBox;
         QListWidget *timeList;
-        QPushButton *configButton;
-
-        TiCare::Scheduler *scheduler;
 };
 
 #endif // MAINDIALOG_H

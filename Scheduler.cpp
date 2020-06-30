@@ -6,6 +6,18 @@ namespace TiCare {
     Scheduler::Scheduler( QObject *parent ) : QObject( parent ) {}
 
 
+    Scheduler::~Scheduler()
+    {
+        // Alla chiusura libero lo spazio occupato dai task aggiunti
+        // allo scheduler
+        for ( auto task : taskList )
+        {
+            delete task;
+        }
+    }
+
+
+    // Restituisce un puntatore in sola lettura ad un task di nome taskName
     Task* Scheduler::getTask( const QString taskName  ) const
     {
         for ( auto task : taskList )
@@ -19,7 +31,7 @@ namespace TiCare {
     }
 
 
-    // Add a task to the Scheduler
+    // Aggiunge un task allo scheduler
     void Scheduler::addTask( TaskInterface *task )
     {
         if ( taskExists( task->getTaskName() ) )
@@ -32,9 +44,11 @@ namespace TiCare {
     }
 
 
-    // Add a task and a timer to the Scheduler
+    // Aggiunge allo scheduler un task e un timer associato
     void Scheduler::addTask( TaskInterface *task, TimerInterface *timer )
     {
+        // Verifico che non esista già un task con lo stesso nome di quello
+        // che voglio aggiungere
         if ( taskExists( task->getTaskName() ) )
         {
             qDebug() << "Esiste già un task con questo nome " << task->getTaskName()
@@ -42,9 +56,12 @@ namespace TiCare {
             return;
         }
 
+        // Istanzio un task e lo aggiungo al vettore taskList
         Task *tempTask = new Task( task, timer );
         taskList.push_back( tempTask );
 
+        // Connetto l'evento di timeout del timer associato al task con l'esecuzione
+        // del task stesso
         QObject::connect( timer, &QTimer::timeout, [ tempTask ]()
         {
             tempTask->ExecuteTask();
@@ -52,6 +69,7 @@ namespace TiCare {
     }
 
 
+    // Restituisce la lista dei nomi dei task
     QStringList Scheduler::getTaskNameList() const
     {
         QStringList taskNameList{};
@@ -65,6 +83,7 @@ namespace TiCare {
     }
 
 
+    // Elimina un task
     void Scheduler::removeTask( const QString taskName )
     {
         for ( auto &task : taskList )
@@ -84,6 +103,7 @@ namespace TiCare {
     }
 
 
+    // Verifica se un task di nome taskName esista già in taskList
     bool Scheduler::taskExists( const QString taskName ) const
     {
         for ( auto task : taskList )

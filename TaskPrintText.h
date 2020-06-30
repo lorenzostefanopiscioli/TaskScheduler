@@ -22,6 +22,8 @@ namespace TiCare {
             explicit TaskPrintText( QString _taskName, QString _textToBePrinted = "" )
             : taskName( _taskName ), textToBePrinted( _textToBePrinted ) {};
 
+            // Per rendere concreta questa classe, implemento i metodi virtuali
+            // dell'interfaccia TaskInterface
             virtual QString getTaskName() const override;
             virtual void ExecuteTask() override;
             virtual void setConfiguration() override;

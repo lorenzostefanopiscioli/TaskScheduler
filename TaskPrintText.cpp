@@ -9,6 +9,7 @@ namespace TiCare {
     }
 
 
+    // Implemento il task da eseguire
     void TaskPrintText::ExecuteTask()
     {
         // Se il testo non è ancora stato configurato, non stampo nulla

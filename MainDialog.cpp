@@ -1,22 +1,16 @@
 #include "MainDialog.h"
 
 
-MainDialog::MainDialog( TiCare::Scheduler *_scheduler, QWidget *parent ) : QDialog( parent )
+MainDialog::MainDialog( const TiCare::Scheduler *_scheduler, QWidget *parent ) : QDialog( parent ), scheduler( _scheduler )
 {   
-    scheduler = _scheduler;
-
     createSystemTrayIconActions();
     createSystemTrayIcon();
-
-
 
     taskComboBox = new QComboBox;
     taskComboBox->addItem( tr( "Seleziona un task" ) );
     taskComboBox->addItems( scheduler->getTaskNameList() );
 
-
     timeList = new QListWidget;
-        // timeList->addItems( scheduler.getTask( "File Exists" )->getTimerNameList() );
 
     QGroupBox *taskListGroupBox = new QGroupBox( tr( "List" ) );
         QVBoxLayout *taskListLayout = new QVBoxLayout;
@@ -24,8 +18,8 @@ MainDialog::MainDialog( TiCare::Scheduler *_scheduler, QWidget *parent ) : QDial
             taskListLayout->addWidget( timeList );
     taskListGroupBox->setLayout( taskListLayout );
 
-    configButton = new QPushButton( "Configurazione" );
-    QPushButton *closeButton = new QPushButton( "Chiudi" );
+    QPushButton *configButton = new QPushButton( "Configurazione" );
+    QPushButton *closeButton = new QPushButton( "Nascondi" );
 
     QGroupBox *buttonGroupBox = new QGroupBox();
         QHBoxLayout *buttonGroupLayout = new QHBoxLayout;
@@ -55,11 +49,6 @@ MainDialog::MainDialog( TiCare::Scheduler *_scheduler, QWidget *parent ) : QDial
 }
 
 
-MainDialog::~MainDialog()
-{
-}
-
-
 void MainDialog::closeEvent( QCloseEvent *event )
 {
     if ( systemTrayIcon->isVisible() )
@@ -81,6 +70,9 @@ void MainDialog::closeEvent( QCloseEvent *event )
 
 void MainDialog::createSystemTrayIconActions()
 {
+    // Connette la voce del menu contestuale della system tray "Impostazioni"
+    // all'apertura della finestra di dialogo per il controllo delle
+    // configurazioni
     showSettingsDialogAction = new QAction( tr( "&Impostazioni" ), this );
     connect( showSettingsDialogAction, &QAction::triggered, this, &QWidget::showNormal );
 
@@ -91,6 +83,8 @@ void MainDialog::createSystemTrayIconActions()
 }
 
 
+// Metodo che imposta l'interazione dell'applicazione
+// con la system tray del sistema operativo
 void MainDialog::createSystemTrayIcon()
 {
     // Crea un menu contestuale per la System Tray
@@ -113,24 +107,34 @@ void MainDialog::createSystemTrayIcon()
 }
 
 
+// Questo metodo serve ad aggiornare la lista dei timer
 void MainDialog::setTimeList( const QString currentText )
 {
+    // Se non viene selezionato alcun task, esco
     if ( currentText == "Seleziona un task" )
     {
         timeList->clear();
         return;
     }
+    // Svuoto la lista dei nomi dei timer associata al task scelto in
+    // precedenza
     timeList->clear();
+    // aggiungo i nomi dei timer alla lista associata al nuovo task scelto
     timeList->addItems( scheduler->getTask( currentText )->getTimerNameList() );
 }
 
 
+// Questo metodo viene invocato a seguito di un click sul bottone impostazioni
+// ed eseguie il metodo virtuale setConfiguration() del task selezionato nel
+// combobox
 void MainDialog::configTask()
 {
+    // Se non viene selezionato alcun task, esco
     if ( taskComboBox->currentText() == "Seleziona un task" )
     {
         return;
     }
+    // Invoco il metodo virtuale per la configurazione del task
     scheduler->getTask( taskComboBox->currentText() )->setConfiguration();
 }
 

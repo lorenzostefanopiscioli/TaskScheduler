@@ -9,6 +9,7 @@ namespace TiCare {
     }
 
 
+    // Implemento il task da eseguire
     void TaskFileExists::ExecuteTask()
     {
         if ( !QFile( fileName ).exists() )
